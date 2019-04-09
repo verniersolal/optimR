@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const users = require('../../optimr/controllers/user');
-const itinerary = require('../../optimr/controllers/itinerary');
+const users = require('../controllers/user');
+const itinerary = require('../controllers/itinerary');
 
 router.get('/itinerary', itinerary.getItinerary);
 router.get('*', function(req,res){
