@@ -6,6 +6,7 @@ const routes  = require("./routes/routes");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json({type : 'application/json'}));
+app.use(bodyParser.urlencoded({ extended: true }));
 // swagger est l'outil qui permet de créer de la documentation
 app.use("/optimr/", routes);
 

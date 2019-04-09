@@ -12,6 +12,8 @@
   "dependencies": {
     "ajax": "0.0.4",
     "ajax-request": "^1.2.3",
+    "bcrypt": "^3.0.5",
+    "circular-json": "^0.5.9",
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
