@@ -1,0 +1,95 @@
+@font-face {
+    font-family: ACalling;
+    src: url("../fonts/a_calling.otf") format("opentype");
+}
+
+@font-face {
+    font-family: YanoneKaffeesatz;
+    src: url("../fonts/YanoneKaffeesatz-Regular.ttf") format("truetype"); /* Safari, Android, iOS */
+}
+
+body {
+    font-family: "YanoneKaffeesatz", serif;
+    background-image: url("../img/background.png");
+    background-repeat: repeat-y;
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+}
+
+html {
+    font-size: 20px !important;
+}
+
+#logoImg {
+    height: 90%;
+    margin-top: 5%;
+}
+
+nav a {
+    color: #4c9249 !important;
+}
+
+.sidenav li > a {
+    color: #4c9249 !important;
+    font-size: 25px;
+}
+
+.btn, .btn-large {
+    background-color: #4c9249 !important;
+    font-size: 20px !important;
+}
+
+#loginContainer {
+    border-radius: 10px;
+    margin-top: 20vh;
+    width: 50%;
+    border: 2px solid #929292;
+}
+
+#loginBtn {
+    margin-right: 1%;
+}
+
+#signupBtn {
+    margin-left: 1%;
+}
+
+button {
+    font-family: "YanoneKaffeesatz";
+}
+
+.buttons {
+    margin: 2%;
+}
+
+.input-field .prefix.active {
+    color: #4c9249;
+}
+
+.input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .helper-text, .input-field .prefix ~ .autocomplete-content {
+    width: 92%;
+}
+
+/* label underline focus color */
+.input-field input:focus {
+    border-bottom: 1px solid #4c9249 !important;
+    box-shadow: 0 1px 0 0 #4c9249 !important
+}
+
+.input-field input:focus + label {
+    color: #4c9249 !important;
+}
+
+.input-field > label {
+    color: #929292;
+}
+
+.input-field .prefix {
+    color: #929292;
+}
+
+.col .row {
+    margin-left: 0;
+    margin-right: 0;
+}
