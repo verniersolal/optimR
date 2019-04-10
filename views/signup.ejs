@@ -1,9 +1,4 @@
 <% extend('layout') %>
-<% if( typeof(error) !== "undefined") { %>
-    <script>
-        M.toast({html: 'Cet email déjà existant', classes: 'rounded'});
-    </script>
-<% } %>
 <form class="col s12" method="post" action="/optimr/signin">
     <div class="container white" id="loginContainer">
         <div class="row">
