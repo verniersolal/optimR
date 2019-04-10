@@ -3,13 +3,9 @@ const api_code = require('../../optimr/config/api_key').api_code;
 const request = require('ajax-request');
 
 
-exports.getMap = function(req,res){
-    res.render('leaflet.ejs');
-}
-
 exports.getItinerary = function(req, res){
     if(req.method=='GET'){
-        return res.render('itinerary.ejs', { data: JSON.stringify('data')});
+        return res.render('test.ejs', { data: JSON.stringify('data')});
     }
     request({
         url: 'https://geocoder.api.here.com/6.2/geocode.json',
@@ -48,7 +44,7 @@ exports.getItinerary = function(req, res){
                 data: {
                     waypoint0: Position1.Latitude+','+ Position1.Longitude,
                     waypoint1: Position2.Latitude+','+ Position2.Longitude,
-                    mode: 'fastest;publicTransport',
+                    mode:'fastest;publicTransport',
                     app_id: api_id,
                     app_code: api_code,
                     departure: 'now',
@@ -56,11 +52,52 @@ exports.getItinerary = function(req, res){
                 }
             }, function(err3, result3, body3){
                 let maneuver = JSON.parse(body3).response.route[0].leg[0].maneuver;
-                let data = [];
                 for(let i=0; i < maneuver.length; i++) {
                     maneuver[i].instruction = maneuver[i].instruction.replace(/(<([^>]+)>)/ig, "");
                 }
-                res.render('leaflet.ejs', { data: maneuver});
+                request({
+                    url: 'https://reverse.geocoder.api.here.com/6.2/reversegeocode.json',
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    jsonp: 'jsoncallback',
+                    data: {
+                        prox: Position1.Latitude+','+ Position1.Longitude+','+10,
+                        mode: 'retrieveAddresses',
+                        maxresults: '1',
+                        gen: '9',
+                        app_id: api_id,
+                        app_code: api_code
+                    }
+
+                }, function(err4, result4, body4){
+                    let address1 = JSON.parse(body4).Response.View[0].Result[0].Location.Address.Label;
+                    for(var i = 0; i<maneuver.length; i++){
+                        let man = maneuver[i];
+                        request({
+                            url: 'https://reverse.geocoder.api.here.com/6.2/reversegeocode.json',
+                            type: 'GET',
+                            dataType: 'jsonp',
+                            jsonp: 'jsoncallback',
+                            data: {
+                                prox: man.position.latitude+','+ man.position.longitude+','+10,
+                                mode: 'retrieveAddresses',
+                                maxresults: '1',
+                                gen: '9',
+                                app_id: api_id,
+                                app_code: api_code
+                            }
+
+                        }, function(err5, result5, body5){
+                            let address = JSON.parse(body5).Response.View[0].Result[0].Location.Address.Label;
+
+                        });
+                    }
+                    res.render('test.ejs', { pointA: Position1, pointB: Position2});
+
+
+
+                });
+
 
             });
 
@@ -68,3 +105,8 @@ exports.getItinerary = function(req, res){
     });
 
 };
+
+
+exports.getPointA = function(req,res,next){
+
+}
