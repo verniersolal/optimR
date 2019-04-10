@@ -19,6 +19,24 @@ module.exports = function (sequelize, DataTypes) {
         username: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        points: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: '0'
+        },
+        level: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: '1'
+        },
+        weight: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
+        sex: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     }, {
         tableName: 'user',
