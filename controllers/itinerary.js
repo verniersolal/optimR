@@ -1,5 +1,5 @@
-const api_id = require('../../optimr/config/api_key').api_id;
-const api_code = require('../../optimr/config/api_key').api_code;
+const api_id = require('../config/api_key').api_id;
+const api_code = require('../config/api_key').api_code;
 const request = require('ajax-request');
 
 

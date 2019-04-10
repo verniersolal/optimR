@@ -1,1 +1,28 @@
-<p> <%= data %> </p>
+<% extend('layout') %>
+
+<% if (user !== undefined) { %>
+    <h1> Coucou toi <%- JSON.stringify(user.email) %></h1>
+<% } else{ %>
+    <form class="col s12" method="post" action="/optimr/login">
+        <div class="container white" id="loginContainer">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">email</i>
+                    <input name="email" id="email" type="email" class="validate">
+                    <label for="email">Email</label>
+                    <span class="helper-text" data-error="Invalide" data-success="Valide"></span>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">vpn_key</i>
+                    <input name="password" id="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons row center">
+            <button class="btn waves-effect waves-light btn-large" id="login" type="submit">Se connecter</button>
+            <a id="signupBtn" href="/optimr/signup" class="waves-effect waves-light btn center btn-large">S'inscrire</a>
+        </div>
+    </form>
+<% } %>
