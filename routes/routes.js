@@ -6,6 +6,7 @@ const auth = require('../controllers/AuthenticationController');
 
 router.post('/itinerary/', itinerary.getItinerary);
 router.get('/itinerary', itinerary.getItinerary);
+router.post('/import', itinerary.import);
 router.get('/', homepage.getHomePage);
 // Auth
 router.post('/login',auth.login);

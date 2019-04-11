@@ -1,7 +1,7 @@
 const api_id = require('../config/api_key').api_id;
 const api_code = require('../config/api_key').api_code;
 const request = require('ajax-request');
-
+const trajet = require('../models/index').trajet;
 
 exports.getItinerary = function(req, res){
     if(req.method=='GET'){
@@ -44,7 +44,29 @@ exports.getItinerary = function(req, res){
 
 };
 
+exports.import = function(req,res){
+    let data = [];
+    for(let i = 0; i+1< req.body.trajets.length; i++){
 
-exports.getPointA = function(req,res,next){
+        req.body.trajets[i]['latb'] =req.body.trajets[i+1]['lata'];
+        req.body.trajets[i]['lgtb'] =req.body.trajets[i+1]['lgta'];
+        data.push(req.body.trajets[i]);
+    }
+    trajet.max('trajetid').then(maxValue =>{
+        if(isNaN(maxValue)){
+            for(var i =0; i<data.length;i++){
+                data[i]['trajetid'] = 0;
+            }
+        }else{
+            for(var i =0; i<data.length;i++){
+                data[i]['trajetid'] = maxValue+1;
+            }
+        }
+    }).then(() => {
+        for(var i =0; i<data.length;i++){
+            trajet.create(data[i]).then(()=>{}).catch(err =>{console.error(err);})
+        }
+    });
 
-}
+    res.json('toto');
+};
