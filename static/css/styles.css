@@ -109,7 +109,7 @@ button {
     margin-top: 2%;
 }
 
-#profileImg {
+.headerImg {
     height: 10vh;
     margin-top: 2vh;
 }
@@ -160,5 +160,25 @@ button {
 }
 
 #trajetsTable {
+    color: #929292;
+}
+
+.avatarFollow {
+    margin-top: 3%;
+}
+
+.feuilleAvatar {
+    width: 2%;
+    vertical-align: middle;
+    margin: 1%
+}
+
+.collection {
+    max-height: 40vh;
+    overflow-y: scroll;
+}
+
+.avatarUsername {
+    font-family: YanoneKaffeesatz;
     color: #929292;
 }

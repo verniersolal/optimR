@@ -68,3 +68,7 @@ exports.logged = function (req, res) {
     res.locals.rateLevel = profile.getRateLevel(req, req.session.user.points);
     res.render('profile.ejs');
 }
+
+exports.getCurrentUser = function (req, res) {
+    res.json(req.session.user);
+}

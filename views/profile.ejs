@@ -17,7 +17,11 @@
     <div class="container">
         <div class="row headerView">
             <div class="col m6 l6 s12 center">
-                <img src="../static/img/profil.png" id="profileImg">
+                <% if(user.sex == null) { %>
+                    <img src="../static/img/profil.png" class="headerImg">
+                <% } else { %>
+                    <img src="../static/img/sexe_<%=user.sex%>.png" class="headerImg">
+                <% } %>
                 <p class="flow-text"><%= user.username %></p></div>
             <div class="col m6 l6 s12 hide-on-small-and-down">
                 <div class="col l12 m12 s12">
@@ -69,7 +73,8 @@
             </div>
         </div>
         <div class="row center">
-            <a class="waves-effect waves-light btn btn-large"><i class="material-icons left">directions</i>Rechercher un itinéraire</a>
+            <a class="waves-effect waves-light btn btn-large"><i class="material-icons left">directions</i>Rechercher un
+                trajet</a>
         </div>
         <div class="row">
             <div class="col l6 m12 s12 center">
@@ -97,13 +102,22 @@
                                 <div class="saveInput input-field col s12">
                                     <select name="sex">
                                         <option disabled selected>Sexe</option>
-                                        <option value="1">Homme</option>
-                                        <option value="0">Femme</option>
+                                        <% if(user.sex == 1) { %>
+                                            <option value="1" selected>Homme</option>
+                                        <% }else { %>
+                                            <option value="1">Homme</option>
+                                        <% } %>
+                                        <% if(user.sex == 0) { %>
+                                            <option value="0" selected>Femme</option>
+                                        <% }else { %>
+                                            <option value="0">Femme</option>
+                                        <% } %>
                                     </select>
                                     <label>Materialize Select</label>
                                 </div>
                                 <div class="saveInput input-field col s12">
-                                    <input name="weight" id="weight" type="number" class="validate">
+                                    <input value="<%= user.weight %>" name="weight" id="weight" type="number"
+                                           class="validate">
                                     <label for="weight">Poids (en kg)</label>
                                 </div>
                             </div>

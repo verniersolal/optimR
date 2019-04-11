@@ -18,14 +18,14 @@
 <div class="navbar-fixed">
     <nav class="white">
         <div class="nav-wrapper">
-            <a href="/optimr" class="brand-logo center"><img id="logoImg" src="../static/img/logo.png"></a>
+            <a href="/optimr" class="brand-logo center"><img id="logoImg" src="../static/img/logo.svg"></a>
             <% if (typeof logged !== 'undefined') { %>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
                     <li><a href="/optimr/profile">Profil</a></li>
                     <li><a href="badges.html">Trajets</a></li>
                     <li><a href="collapsible.html">Historique</a></li>
-                    <li><a href="mobile.html">Communauté</a></li>
+                    <li><a href="/optimr/community">Communauté</a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="/optimr/logout"><i class="material-icons left">power_settings_new</i>Se
@@ -41,7 +41,7 @@
         <li><a href="/optimr/profile">Profil</a></li>
         <li><a href="badges.html">Trajets</a></li>
         <li><a href="collapsible.html">Historique</a></li>
-        <li><a href="mobile.html">Communauté</a></li>
+        <li><a href="/optimr/community">Communauté</a></li>
         <li><a href="/optimr/logout">Se déconnecter</a></li>
     </ul>
 <% } %>
