@@ -175,7 +175,7 @@ button {
 
 .collection {
     max-height: 40vh;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .avatarUsername {

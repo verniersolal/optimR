@@ -26,6 +26,7 @@ $(document).on('click', '.followBtn', {}, function (e) {
                 success: function (data) {
                     $("#usersCollection").load(location.href + " #usersCollection>*", "");
                     $("#followCollection").load(location.href + " #followCollection>*", "");
+                    M.toast({html: 'Nouvel abonnement', classes: 'rounded green center'});
                 }
             })
         }
@@ -46,6 +47,7 @@ $(document).on('click', '.unfollowBtn', {}, function (e) {
                 success: function (data) {
                     $("#usersCollection").load(location.href + " #usersCollection>*", "");
                     $("#followCollection").load(location.href + " #followCollection>*", "");
+                    M.toast({html: 'Désabonné', classes: 'rounded orange center'});
                 }
             })
         }
