@@ -24,7 +24,8 @@ $(document).on('click', '.followBtn', {}, function (e) {
                 type: 'post',
                 data: data,
                 success: function (data) {
-                    $("#communityCollection").load(location.href + " #communityCollection>*", "");
+                    $("#usersCollection").load(location.href + " #usersCollection>*", "");
+                    $("#followCollection").load(location.href + " #followCollection>*", "");
                 }
             })
         }
@@ -43,7 +44,8 @@ $(document).on('click', '.unfollowBtn', {}, function (e) {
                 type: 'post',
                 data: data,
                 success: function (data) {
-                    $("#communityCollection").load(location.href + " #communityCollection>*", "");
+                    $("#usersCollection").load(location.href + " #usersCollection>*", "");
+                    $("#followCollection").load(location.href + " #followCollection>*", "");
                 }
             })
         }
