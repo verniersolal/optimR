@@ -20,7 +20,7 @@
                 <% if(user.sex == null) { %>
                     <img src="../static/img/profil.png" class="headerImg">
                 <% } else { %>
-                    <img src="../static/img/sexe_<%=user.sex%>.png" class="headerImg">
+                <img src="../static/img/sexe_<%= user.sex %>.png" class="headerImg">
                 <% } %>
                 <p class="flow-text"><%= user.username %></p></div>
             <div class="col m6 l6 s12 hide-on-small-and-down">
@@ -73,7 +73,8 @@
             </div>
         </div>
         <div class="row center">
-            <a class="waves-effect waves-light btn btn-large"><i class="material-icons left">directions</i>Rechercher un
+            <a class="waves-effect waves-light btn btn-large" href="/optimr/itinerary"><i class="material-icons left">directions</i>Rechercher
+                un
                 trajet</a>
         </div>
         <div class="row">

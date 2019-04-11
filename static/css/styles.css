@@ -330,3 +330,39 @@ button {
 .directions li span.ferry {
     background-position: -1316px;
 }
+
+.donation-desc {
+    color: #929292;
+}
+
+.card-image {
+    position: relative;
+    max-width: 100%;
+    width: 15vh;
+    height: auto;
+    /* align-items: normal; */
+    margin: auto;
+}
+
+#sos {
+    top: 5vh;
+}
+
+#volontaires {
+    top: 5vh;
+}
+
+#canopee {
+    top: 5vh;
+}
+
+#climates {
+    top: 5vh;
+}
+
+.modal-content {
+    color: #4c9249;
+}
+#modal-title{
+    color: #929292;
+}

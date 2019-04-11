@@ -10,6 +10,9 @@ $('.saveInput').on('change', function () {
     $('#saveInfoBtn').removeClass("disabled");
 });
 
+$(document).ready(function () {
+    $('.modal').modal();
+});
 
 $(document).on('click', '.followBtn', {}, function (e) {
     let user_to_follow = event.target.id.split("follow_")[1];

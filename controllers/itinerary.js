@@ -3,8 +3,16 @@ const api_code = require('../config/api_key').api_code;
 const request = require('ajax-request');
 const trajet = require('../models/index').trajet;
 
+exports.getItinerary = function (req, res) {
+    if (req.method === 'GET') {
+        return res.render('itinerary.ejs', {
+            data: JSON.stringify('data'), user: req.session.user,
+            logged: true
+        });
+    }
+}
 exports.getItinerary = function(req, res){
-    if(req.method=='GET'){
+    if(req.method==='GET'){
         return res.render('itinerary.ejs', { data: JSON.stringify('data')});
     }
     request({
@@ -17,9 +25,11 @@ exports.getItinerary = function(req, res){
             app_code: api_code,
             gen: '9'
         }
-    },function(err1, result1, body1){
+    }, function (err1, result1, body1) {
 
-        if(err1){return res.status(400).json({'message': err1, 'error': true})}
+        if (err1) {
+            return res.status(400).json({'message': err1, 'error': true})
+        }
         let Position1 = JSON.parse(body1).Response.View[0].Result[0].Location.DisplayPosition;
         request({
             url: 'https://geocoder.api.here.com/6.2/geocode.json',
@@ -31,12 +41,19 @@ exports.getItinerary = function(req, res){
                 app_code: api_code,
                 gen: '9'
             }
-        },function(err2, result2, body2){
+        }, function (err2, result2, body2) {
 
-            if(err2){return res.status(400).json({'message': err2, 'error': true})}
+            if (err2) {
+                return res.status(400).json({'message': err2, 'error': true})
+            }
             let Position2 = JSON.parse(body2).Response.View[0].Result[0].Location.DisplayPosition;
             res.render('itinerary.ejs', { pointA: Position1, pointB: Position2});
 
+            res.render('itinerary.ejs',
+                {
+                    pointA: Position1, pointB: Position2, user: req.session.user,
+                    logged: true,
+                });
         });
 
 
@@ -211,7 +228,6 @@ exports.import = function(req,res){
         }
     });
 };
-
 
 exports.getData = function(req,res){
     //recuperer le dernier trajet et retourner sous forme de json
