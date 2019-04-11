@@ -1,3 +1,7 @@
 exports.getHomePage = function (req, res) {
-    res.render('index.ejs', {user: req.session.user});
+    if(req.session.logged) {
+        res.redirect('/optimr/profile');
+    }else{
+        res.render('index.ejs', {user: req.session.user});
+    }
 }

@@ -8,6 +8,8 @@
     src: url("../fonts/YanoneKaffeesatz-Regular.ttf") format("truetype"); /* Safari, Android, iOS */
 }
 
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow');
+
 body {
     font-family: "YanoneKaffeesatz", serif;
     background-image: url("../img/background.png");
@@ -19,6 +21,7 @@ body {
 
 html {
     font-size: 20px !important;
+    height: 100%;
 }
 
 #logoImg {
@@ -92,4 +95,70 @@ button {
 .col .row {
     margin-left: 0;
     margin-right: 0;
+}
+
+.tabs {
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.block {
+    color: #4c9249;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid #929292;
+    margin-top: 2%;
+}
+
+#profileImg {
+    height: 10vh;
+    margin-top: 2vh;
+}
+
+.headerView {
+    color: #4c9249;
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid #929292;
+    margin-top: 5vh;
+}
+
+.levelImg {
+    width: 20%;
+    margin: 2%;
+}
+
+#feuilleLogo {
+    width: 5%;
+    vertical-align: middle;
+    margin: 1%;
+}
+
+#nbFeuilles {
+    font-size: 30px;
+}
+
+.yanone {
+    font-family: YanoneKaffeesatz;
+    color: #929292;
+}
+
+#levelBlock {
+    position: relative;
+}
+
+#levelContent {
+    position: absolute;
+    top: 15%;
+}
+
+.blockBtn {
+    margin-bottom: 1%;
+}
+
+#welcomeText {
+    color: #4c9249;
+}
+
+#trajetsTable {
+    color: #929292;
 }

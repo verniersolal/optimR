@@ -1,0 +1,156 @@
+<% extend('layout') %>
+<% if( typeof login !== 'undefined' && typeof user !== 'undefined') { %>
+    <script type="text/javascript" src="../static/js/materialize.min.js"></script>
+    <script>
+        M.toast({html: 'Bonjour <%= user.username %> !', classes: 'rounded'});
+    </script>
+<% } %>
+<% if( typeof saved !== 'undefined') { %>
+    <script type="text/javascript" src="../static/js/materialize.min.js"></script>
+    <script>
+        M.toast({html: 'Modifications sauvegardées', classes: 'rounded'});
+    </script>
+<% } %>
+
+<% if( typeof user !== 'undefined') { %>
+
+    <div class="container">
+        <div class="row headerView">
+            <div class="col m6 l6 s12 center">
+                <img src="../static/img/profil.png" id="profileImg">
+                <p class="flow-text"><%= user.username %></p></div>
+            <div class="col m6 l6 s12 hide-on-small-and-down">
+                <div class="col l12 m12 s12">
+                    <div class="row center">
+                        <div class="col l12 m12 s12">
+                            <img class="levelImg" src="../static/img/<%= user.level %>.png">
+                        </div>
+                        <div class="col l12 m12 s12">
+                            Niveau <%= user.level %>
+                        </div>
+                        <div class="col l12 m12 s12">
+                            <div class="progress">
+                                <div class="determinate" style="width: <%= rateLevel %>%"></div>
+                            </div>
+                        </div>
+                        <div class="col l12 m12 s12">
+                            À <%= rateLevel %> % du prochain niveau
+                        </div>
+                        <div id="nbFeuilles" class="col l12 m12 s12">
+                            <%= user.points %> <img id="feuilleLogo" src="../static/img/feuille.png"> récoltées !
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center hide-on-med-and-up">
+                <div class="block col l12 m12 s12">
+                    <div class="row block-content">
+                        <div class="col l12 m12 s12">
+                            <img class="levelImg" src="../static/img/<%= user.level %>.png">
+                        </div>
+                        <div class="col l12 m12 s12">
+                            Niveau <%= user.level %>
+                        </div>
+                        <div class="col l12 m12 s12">
+                            <div class="progress">
+                                <div class="determinate" style="width: <%= rateLevel %>%"></div>
+                            </div>
+                        </div>
+                        <div class="col l12 m12 s12">
+                            À <%= rateLevel %> % du prochain niveau
+                        </div>
+                        <div id="nbFeuilles" class="col l12 m12 s12">
+                            <%= user.points %> <img id="feuilleLogo" src="../static/img/feuille.png"> récoltées !
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row center">
+            <a class="waves-effect waves-light btn btn-large"><i class="material-icons left">directions</i>Rechercher un itinéraire</a>
+        </div>
+        <div class="row">
+            <div class="col l6 m12 s12 center">
+                <div data-mh="block-group" class="block col l12 m12 s12">
+                    <form method="post" action="/optimr/infos">
+                        <p class="flow-text">Mes infos</p>
+                        <div class="col m6 l6 s12">
+                            <div class="col m12 l12 s12">
+                                <u class="yanone">Obligatoire</u>
+                                <div class="input-field col s12">
+                                    <input disabled id="email" type="email" value="<%= user.email %>"
+                                           class="validate">
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input disabled id="username" value="<%= user.username %>" type="text"
+                                           class="validate">
+                                    <label for="username">Nom d'utilisateur</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m6 l6 s12">
+                            <div class="col m12 l12 s12">
+                                <u class="yanone">Facultatif</u>
+                                <div class="saveInput input-field col s12">
+                                    <select name="sex">
+                                        <option disabled selected>Sexe</option>
+                                        <option value="1">Homme</option>
+                                        <option value="0">Femme</option>
+                                    </select>
+                                    <label>Materialize Select</label>
+                                </div>
+                                <div class="saveInput input-field col s12">
+                                    <input name="weight" id="weight" type="number" class="validate">
+                                    <label for="weight">Poids (en kg)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m12 l12 s12">
+                            <button id="saveInfoBtn" class="disabled blockBtn btn waves-effect waves-light"
+                                    type="submit"
+                                    name="action">
+                                Enregistrer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col l6 m12 s12 center hide-o">
+                <div data-mh="block-group" class="block col l12 m12 s12">
+                    <p class="flow-text">Mes meilleurs trajets</p>
+                    <table id="trajetsTable" class="striped responsive-table">
+                        <thead>
+                        <tr>
+                            <th>Départ</th>
+                            <th>Arrivée</th>
+                            <th>Score</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td>Comédie</td>
+                            <td>UPV</td>
+                            <td>231</td>
+                        </tr>
+                        <tr>
+                            <td>Gare St Roch</td>
+                            <td>UPV</td>
+                            <td>208</td>
+                        </tr>
+                        <tr>
+                            <td>Occitanie</td>
+                            <td>Comédie</td>
+                            <td>189</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<% } %>

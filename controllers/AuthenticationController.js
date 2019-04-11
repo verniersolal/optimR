@@ -1,5 +1,6 @@
 const user = require('../models/index').user;
 const bcrypt = require('bcrypt');
+const profile = require('../controllers/ProfileController');
 
 exports.login = function (req, res) {
     let email = req.body.email;
@@ -8,19 +9,16 @@ exports.login = function (req, res) {
         where: {
             email: email,
         },
-        attributes: ['email', 'password']
     }).then((resp) => {
         if (resp) {
             console.log("success", resp.dataValues.password);
             let realPasswd = resp.dataValues.password;
-            console.log(password, realPasswd);
             if (bcrypt.compareSync(password, realPasswd)) {
-                console.log("same");
-                req.session.user = {email, password};
-                res.locals.user = req.session.user;
-                res.render('index.ejs', {user: req.session.user});
+                req.session.user = resp.dataValues;
+                req.session.logged = true;
+                res.redirect('/optimr/logged');
             } else {
-                console.log("different");
+                console.log("different password... TODO");
             }
         } else {
             console.log("no user found");
@@ -51,9 +49,9 @@ exports.sigin = function (req, res) {
     user.create({username: username, email: email, password: hash}).then((resp) => {
         if (resp) {
             console.log("User has correctly been created !");
-            req.session.user = {email, password};
-            res.locals.user = req.session.user;
-            res.render('index.ejs', {user: req.session.user});
+            req.session.user = resp.dataValues;
+            req.session.logged = true;
+            res.redirect('/optimr/logged');
         } else {
             console.log("User has not correctly been created...");
             res.render('index.ejs', {user: req.session.user});
@@ -61,4 +59,12 @@ exports.sigin = function (req, res) {
     }).catch((e) => {
         console.error(e);
     });
+}
+
+exports.logged = function (req, res) {
+    res.locals.login = true;
+    res.locals.logged = req.session.logged;
+    res.locals.user = req.session.user;
+    res.locals.rateLevel = profile.getRateLevel(req, req.session.user.points);
+    res.render('profile.ejs');
 }
