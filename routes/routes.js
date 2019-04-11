@@ -6,6 +6,8 @@ const auth = require('../controllers/AuthenticationController');
 const profile = require('../controllers/ProfileController');
 
 router.get('/itinerary', itinerary.getItinerary);
+router.post('/itinerary', itinerary.getItinerary);
+
 router.get('/', homepage.getHomePage);
 // Auth
 router.post('/login', auth.login);
