@@ -32,6 +32,8 @@ exports.saveInfos = function (req, res) {
         {where: {email: req.session.user.email}}
     ).then(result => {
             console.log("USER CORRECTLY UPDATED", result);
+            req.session.user.sex = sex;
+            req.session.user.weight = weight;
             res.render('profile.ejs', {
                 logged: true,
                 user: req.session.user,
