@@ -12,14 +12,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    pointa: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    pointb: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     transport_type: {
       type: DataTypes.STRING,
       allowNull: true
@@ -87,9 +79,13 @@ module.exports = function(sequelize, DataTypes) {
         model: 'users',
         key: 'email'
       }
+    },
+    score: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     tableName: 'trajet',
-      timestamps:false
+      timestamps: false
   });
 };

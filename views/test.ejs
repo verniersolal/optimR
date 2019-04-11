@@ -207,7 +207,7 @@
 
         var router = platform.getRoutingService(),
             routeRequestParams = {
-                mode: 'fastest;car',
+                mode: 'fastest;publicTransport',
                 representation: 'display',
                 routeattributes : 'waypoints,summary,shape,legs',
                 maneuverattributes: 'direction,action',
@@ -284,18 +284,19 @@
             type:'POST',
             data:test,
             success:function(data){
+                addRouteShapeToMap(route);
+                addManueversToMap(route);
 
+                addWaypointsToPanel(route.waypoint);
+                addManueversToPanel(data);
+                addSummaryToPanel(route.summary);
             },
-            error: function(res, stat, err){}
+            error: function(res, stat, err){
+                console.log(err);
+            }
         });
-        console.log(route.waypoint);
 
-        addRouteShapeToMap(route);
-        addManueversToMap(route);
 
-        addWaypointsToPanel(route.waypoint);
-        addManueversToPanel(route);
-        addSummaryToPanel(route.summary);
         // ... etc.
     }
     /**
@@ -315,7 +316,8 @@
         }
     }
     function tarif(text, distance, transp){
-        if(text.includes(' rail ') || text.includes('bus')){
+        if(text.includes('>rail<') || text.includes('bus')){
+            console.log('tram');
             return 1.6;
         }else if(transp === 'car'){
             return 0.9*(distance/1000);
@@ -327,7 +329,7 @@
         if(transport === 'car'){
             return 10*distance;
         }else if(transport === 'bus'){
-            return 7*distance;
+            return 5*distance;
         }else{
             return 0;
         }
@@ -355,7 +357,7 @@
     }
 
     function transp(text, transp){
-        if(text.includes(' rail ')){
+        if(text.includes('>rail<')){
             return 'tram';
         }else if(text.includes('bus')){
             return 'bus';
@@ -445,7 +447,7 @@
                 var marker =  new H.map.Marker({
                         lat: maneuver.position.latitude,
                         lng: maneuver.position.longitude} ,
-                    {icon: dotIcon});
+                    );
                 marker.instruction = maneuver.instruction;
                 group.addObject(marker);
             }
@@ -503,69 +505,77 @@
         routeInstructionsContainer.appendChild(summaryDiv);
     }
 
-
-    function delay() {
-        return new Promise(resolve => setTimeout(resolve, 500));
-    }
-
-    async function delayedLog(item) {
-        // notice that we can await a function
-        // that returns a promise
-        await delay();
-        return item;
-    }
     /**
      * Creates a series of H.map.Marker points from the route and adds them to the map.
      * @param {Object} route  A route as received from the H.service.RoutingService
      */
-    function addManueversToPanel(route){
-
-
-
-        var nodeOL = document.createElement('ol'),
-            i,
-            j;
+    function addManueversToPanel(route) {
+        console.log(route);
+        var nodeOL = document.createElement('ul');
 
         nodeOL.style.fontSize = 'small';
-        nodeOL.style.marginLeft ='5%';
-        nodeOL.style.marginRight ='5%';
+        nodeOL.style.marginLeft = '5%';
+        nodeOL.style.marginRight = '5%';
         nodeOL.className = 'directions';
-
+        var score = document.createElement('span');
+        var sum = 0;
         // Add a marker for each maneuver
-        for (i = 0;  i < route.leg.length; i += 1) {
-            for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
-                // Get the next maneuver.
-                maneuver = route.leg[i].maneuver[j];
+        for (var i = 0; i < route.length; i++){
 
+            sum+=route[i].score;
+            var listep = document.createElement('li');
+            var spanStep = document.createElement('span');
+            spanStep.innerHTML = 'Point ' +i+ ' ' + 'Point '+ (i+1) + ' Score : '+ route[i].score
 
-                var geocoder = platform.getGeocodingService(),
-                    parameters = {
-                        prox: maneuver.position.latitude+','+maneuver.position.longitude+',10',
-                        mode: 'retrieveAddresses',
-                        maxresults: '1',
-                        gen: '9'};
+            listep.appendChild(spanStep);
+            nodeOL.appendChild(listep);
+            var form = document.createElement('form'),
+                select = document.createElement('select');
+            var transp = ['car', 'velo', 'piéton', 'bus', 'tram'];
+            for(var j=0; j < transp.length; j++){
+                var option = document.createElement('option');
+                option.innerHTML = transp[j];
+                select.id = 'select'+i;
+                select.appendChild(option)
+                form.appendChild(select);
 
-                geocoder.reverseGeocode(parameters,
-                    async function (result) {
+                $('#select'+j).on('click', function(d){
+                })
 
-                        var li = document.createElement('li'),
-                            spanArrow = document.createElement('span'),
-                            spanInstruction = document.createElement('span');
-                        spanArrow.className = 'arrow '  + maneuver.action;
-                        spanInstruction.innerHTML = result.Response.View[0].Result[0].Location.Address.Label;
-                        li.appendChild(spanArrow);
-                        li.appendChild(spanInstruction);
-
-                        nodeOL.appendChild(li);
-                        routeInstructionsContainer.appendChild(nodeOL);
-
-                    }, function (error) {
-                        alert(error);
-                    });
             }
+            nodeOL.appendChild(form);
 
         }
+        score.innerHTML = 'Score total du trajet : '+ sum;
+        routeInstructionsContainer.appendChild(nodeOL);
+        routeInstructionsContainer.appendChild(score);
+        setSelected(route);
+
+
     }
+    function setSelected(route){
+        var transp = ['voiture', 'velo', 'piéton', 'bus', 'tram'];
+
+        for (var i = 0; i< route.length; i++) {
+            $('#select' + i).val(route[i].transport_type);
+            $('#select' + i).on('click', function(d){
+                var id  = this.id.match(/\d+/)[0];
+                console.log(id);
+                $.ajax({
+                    url:'/optimr/getData',
+                    type:'GET',
+                    success:function(data){
+                       console.log(data);
+                    },
+                    error: function(res, stat, err){
+                        console.log(err);
+                    }
+                });
+            })
+        }// you need to specify id of combo to set right combo, if more than one combo
+
+    }
+
 
     Number.prototype.toMMSS = function () {
         return  Math.floor(this / 60)  +' minutes '+ (this % 60)  + ' seconds.';
