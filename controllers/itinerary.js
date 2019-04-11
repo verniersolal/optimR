@@ -5,7 +5,7 @@ const trajet = require('../models/index').trajet;
 
 exports.getItinerary = function(req, res){
     if(req.method=='GET'){
-        return res.render('test.ejs', { data: JSON.stringify('data')});
+        return res.render('itinerary.ejs', { data: JSON.stringify('data')});
     }
     request({
         url: 'https://geocoder.api.here.com/6.2/geocode.json',
@@ -35,7 +35,7 @@ exports.getItinerary = function(req, res){
 
             if(err2){return res.status(400).json({'message': err2, 'error': true})}
             let Position2 = JSON.parse(body2).Response.View[0].Result[0].Location.DisplayPosition;
-            res.render('test.ejs', { pointA: Position1, pointB: Position2});
+            res.render('itinerary.ejs', { pointA: Position1, pointB: Position2});
 
         });
 
