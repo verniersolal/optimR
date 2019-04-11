@@ -1,0 +1,66 @@
+<% extend('layout') %>
+<div class="container">
+    <div class="row headerView">
+        <div class="col m12 l12 s12 center">
+            <img class="headerImg" src="../static/img/community.png">
+            <p class="flow-text">Communauté</p></div>
+    </div>
+    <div class="row" id="communityCollection">
+        <div class="col l6 m6 s12">
+            <div data-mh="block-group" class="block col l12 m12 s12">
+                <p class="flow-text center">Mes abonnements</p>
+                <ul class="collection" id="followCollection">
+                    <% follows.forEach(function(f) { %>
+                        <li class="collection-item avatar">
+                            <% if(f.sex == null) { %>
+                                <img src="../static/img/sexe_1.png" alt="" class="avatarFollow circle">
+                            <% }else { %>
+                                <img src="../static/img/sexe_<%= f.sex %>.png" alt="" class="avatarFollow circle">
+                            <% } %>
+                            <span class="title">
+                                # <%= f.rank + 1 %>
+                            </span>
+                            <p class="avatarUsername"><%= f.username %><br>
+                                <%= f.points %> <img class="feuilleAvatar" src="../static/img/feuille.png"> récoltées !
+                            </p>
+                            <a class="blue btn-floating secondary-content waves-effect waves-light red unfollowBtn"><i
+                                        class="material-icons"
+                                        id="unfollow_<%= f.email %>">person_add_disabled</i></a>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+        <div class="col l6 m6 s12">
+            <div data-mh="block-group" class="block col l12 m12 s12">
+                <p class="flow-text center">Nos meilleurs écolos</p>
+                <ul class="collection" id="usersCollection">
+                    <% users.forEach(function(u, i) { %>
+                        <li class="collection-item avatar">
+                            <% if(u.sex == null) { %>
+                                <img src="../static/img/sexe_1.png" alt="" class="avatarFollow circle">
+                            <% }else { %>
+                                <img src="../static/img/sexe_<%= u.sex %>.png" alt="" class="avatarFollow circle">
+                            <% } %>
+                            <span class="title">#
+                                <%= i + 1 %>
+                        </span>
+                            <p class="avatarUsername"><%= u.username %><br>
+                                <%= u.points %> <img class="feuilleAvatar" src="../static/img/feuille.png"> récoltées !
+                            </p>
+                            <% if(u.followed || u.email == user.email) { %>
+                                <a class="disabled blue btn-floating secondary-content waves-effect waves-light followBtn"><i
+                                            class="material-icons" data-user="<%= user.username %>"
+                                            id="<%   %>follow_<%= u.email %>">person_add</i></a>
+                            <% } else { %>
+                                <a class="blue btn-floating secondary-content waves-effect waves-light followBtn"><i
+                                            class="material-icons" data-user="<%= user.username %>"
+                                            id="<%   %>follow_<%= u.email %>">person_add</i></a>
+                            <% } %>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
