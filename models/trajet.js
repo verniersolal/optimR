@@ -64,10 +64,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    arrival_time: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     step: {
       type: DataTypes.INTEGER,
       allowNull: true
@@ -86,6 +82,6 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'trajet',
-      timestamps: false
+      timestamps:false
   });
 };
