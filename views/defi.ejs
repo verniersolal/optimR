@@ -27,10 +27,11 @@
 <div id="modal2" class="modal">
     <div class="modal-content">
         <h4 class="black-text">Félicitations !</h4>
-        <h3 class="grey-text"> Votre victoire vous a fait remporter 550 <img class="feuilleAvatar" src="../static/img/feuille.png"></h3>
+        <h3 class="grey-text"> Votre victoire vous a fait remporter 550 <img class="feuilleAvatar"
+                                                                             src="../static/img/feuille.png"></h3>
         <h5><i>Vous êtes devenu un...</i></h5>
         <div class="row center">
-            <img id="papillon"src="../static/img/3.png" class="headerImg">
+            <img id="papillon" src="../static/img/3.png" class="headerImg">
         </div>
         <div class="row center">
             <a class="modal-close waves-effect waves-light btn">Houra !</a>
@@ -39,6 +40,8 @@
 </div>
 
 <div class="row center">
+
+
     <!-- Modal Trigger -->
     <a class="waves-effect waves-light btn modal-trigger" href="#modal3">devenir chenille</a>
 
@@ -51,7 +54,7 @@
         <h3 class="grey-text">Malgré votre défaite, vous avez gagné 100 <img class="feuilleAvatar" src="../static/img/feuille.png"></h3>
         <h5><i>Vous êtes devenu une...</i></h5>
         <div class="row center">
-            <img id="papillon"src="../static/img/2.png" class="headerImg">
+            <img id="papillon" src="../static/img/2.png" class="headerImg">
         </div>
         <div class="row center">
             <a class="modal-close waves-effect waves-light btn">Houra !</a>
@@ -59,8 +62,27 @@
     </div>
 </div>
 
+<div class="container block">
+    <div id="trans" class="input-field col s12 l6 m6">
+        <select class="icons green-text">
+            <option value="" disabled selected>Choisissez votre transport</option>
+            <option value="" data-icon="../static/img/voiture.png">Voiture</option>
+            <option value="" data-icon="../static/img/velo.png">Vélo</option>
+            <option value="" data-icon="../static/img/pieds.png">Piéton</option>
+            <option value="" data-icon="../static/img/bus.png">Bus</option>
+            <option value="" data-icon="../static/img/tram.png">Trams</option>
+        </select>
+        <label>Transport</label>
+    </div>
+</div>
+
+
 <style>
-#papillon{
-    height: 23vh;
-}
+    #papillon {
+        height: 23vh;
+    }
+
+    #trans {
+        width: 20%;
+    }
 </style>
