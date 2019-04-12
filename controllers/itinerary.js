@@ -123,7 +123,32 @@ exports.import = function (req, res) {
         }
 
     });
-    if (req.body.trajets[req.body.trajets.length - 1].transport_type === current_transport) {
+    var groupBy = function(xs, key) {
+        return xs.reduce(function(rv, x) {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
+    };
+    var groups = groupBy(req.body.trajets, 'transport_type');
+    console.log('-------------- ',Object.keys(groups).length);
+    if(Object.keys(groups).length === 1){
+        data.push({
+            distance: sumDistance,
+            transport_type: current_transport,
+            duration: sumDuration,
+            co2: sumCo2,
+            calories: sumCalories,
+            no2: sumNo2,
+            pm10: sumPm10,
+            price: sumPrice,
+            lgta: req.body.trajets[0].lgta,
+            lata: req.body.trajets[0].lata,
+            latb: req.body.trajets[req.body.trajets.length-1].lata,
+            lgtb: req.body.trajets[req.body.trajets.length-1].lgta,
+            departure_time: req.body.trajets[req.body.trajets.length - 1].departure_time,
+            step: step
+        });
+    }else if (req.body.trajets[req.body.trajets.length - 1].transport_type === current_transport) {
         data.push({
             distance: sumDistance,
             transport_type: current_transport,
@@ -190,7 +215,7 @@ exports.import = function (req, res) {
             case 'covoit':
                 score = ((data[i]['distance']) * 4.5) / data[i]['duration'];
                 break;
-            case 'bicycle':
+            case 'velo':
                 score = ((data[i]['distance']) * (9.5 + 7)) / data[i]['duration'];
                 break;
             case 'piéton':
@@ -228,5 +253,17 @@ exports.import = function (req, res) {
 };
 
 exports.getData = function (req, res) {
+    trajet.max('trajetid').then(maxValue =>{
+        if(!isNaN(maxValue)){
+            console.log(maxValue);
+            trajet.findAll({
+                where:{
+                    trajetid: maxValue
+                }
+            }).then(result =>{
+                res.json(result);
+            })
+        }
+    })
     //recuperer le dernier trajet et retourner sous forme de json
-}
+};

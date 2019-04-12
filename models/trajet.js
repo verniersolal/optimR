@@ -52,6 +52,10 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.DOUBLE,
             allowNull: true
         },
+        latb: {
+            type: DataTypes.DOUBLE,
+            allowNull: true
+        },
         lgtb: {
             type: DataTypes.DOUBLE,
             allowNull: true
