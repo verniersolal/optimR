@@ -71,6 +71,19 @@ module.exports = function (sequelize, DataTypes) {
                 model: 'user',
                 key: 'email'
             }
+        },
+        score: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: '0'
+        },
+        departure: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        finish: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     }, {
         tableName: 'trajet',

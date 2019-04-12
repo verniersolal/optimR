@@ -8,6 +8,7 @@ exports.getItinerary = function (req, res) {
         return res.render('itinerary.ejs',
             {data: JSON.stringify('data'), user: req.session.user, logged: true});
     }
+    req.session.lastTrajet = {departure: req.body.departure, finish: req.body.finish};
     request({
         url: 'https://geocoder.api.here.com/6.2/geocode.json',
         type: 'GET',
@@ -212,6 +213,11 @@ exports.import = function (req, res) {
         }
         res.json(data);
     }).then(() => {
+        data.forEach((d) => {
+            d.email = req.session.user.email;
+            d.departure = req.session.lastTrajet.departure;
+            d.finish = req.session.lastTrajet.finish;
+        });
         for (var i = 0; i < data.length; i++) {
             trajet.create(data[i]).then(() => {
             }).catch(err => {

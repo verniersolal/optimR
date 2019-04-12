@@ -4,4 +4,41 @@
         <span id="historyTitle">Historique</span>
         <img id="historyImg" src="../static/img/history.png">
     </div>
+    <div class="row">
+        <div class="block col m12 s12 l12">
+            <table id="historyList" class="striped responsive-table">
+                <thead>
+                <tr>
+                    <th>Départ</th>
+                    <th>Arivvée</th>
+                    <th>Distance</th>
+                    <th>Durée</th>
+                    <th>Calories</th>
+                    <th class="tooltipped" data-position="top" data-tooltip="Le CO2 est le principal gaz à effet de serre à l’état naturel, avec la vapeur d’eau. Sa durée de vie dans l’atmosphère est d’environ 100 ans. Il est produit lorsque des composés carbonés sont brûlés et en présence d’oxygène. Pour cette raison, la production industrielle et les émissions automobiles représentent un problème écologique majeur">CO2</th>
+                    <th>NO2</th>
+                    <th>PM10</th>
+                    <th>Prix</th>
+                    <th>Score</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% trajets.forEach(function(t, i) { %>
+                    <tr style="color:rgb(<%- i * 50 + 128 %>, 200, 0)">
+                        <td><%= t.departure %></td>
+                        <td><%= t.finish %></td>
+                        <td><%= t.distance %></td>
+                        <td><%= t.duration %></td>
+                        <td><%- t.calories.toFixed(2) %></td>
+                        <td><%- t.co2.toFixed(2) %></td>
+                        <td><%- t.no2.toFixed(2) %></td>
+                        <td><%= t.pm10 %></td>
+                        <td><%= t.price %></td>
+                        <td><%= t.score %></td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

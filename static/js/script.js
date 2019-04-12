@@ -13,7 +13,9 @@ $('.saveInput').on('change', function () {
 $(document).ready(function () {
     $('.modal').modal();
 });
-
+$(document).ready(function () {
+    $('.tooltipped').tooltip();
+});
 $(document).on('click', '.followBtn', {}, function (e) {
     let user_to_follow = event.target.id.split("follow_")[1];
     $.ajax({

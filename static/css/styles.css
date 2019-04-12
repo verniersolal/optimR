@@ -163,6 +163,11 @@ button {
     color: #929292;
 }
 
+#historyList {
+    color: #929292;
+    font-size: 3vh;
+}
+
 .avatarFollow {
     margin-top: 3%;
 }
