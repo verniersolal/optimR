@@ -11,6 +11,7 @@ const history = require('../controllers/HistoryController');
 // Itinerary
 router.get('/itinerary', itinerary.getItinerary);
 router.post('/itinerary', itinerary.getItinerary);
+router.get('/getData', itinerary.getData);
 
 router.post('/import', itinerary.import);
 router.get('/', homepage.getHomePage);

@@ -446,3 +446,6 @@ button {
     border-radius: 30px;
     top: 2vh;
 }
+select{
+    display: block;
+}
