@@ -411,6 +411,7 @@ button {
 
 #itineraryTitle {
     font-size: 5vh;
+    vertical-align: middle;
 }
 
 #itineraryImg {
@@ -418,9 +419,25 @@ button {
     margin: 1vh;
 }
 
+#historyTitle {
+    font-size: 5vh;
+    vertical-align: middle;
+}
+
+#historyImg {
+    vertical-align: middle;
+    margin: 1vh;
+    height: 5vh;
+}
+
 #map {
     height: 85vh;
     margin-top: 5vh;
     border: 3px solid #929292;
     border-radius: 10px;
+}
+
+#searchBtn {
+    border-radius: 30px;
+    top: 2vh;
 }
