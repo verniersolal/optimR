@@ -446,3 +446,12 @@ button {
     border-radius: 30px;
     top: 2vh;
 }
+
+#historyBlock {
+    max-height: 60vh;
+    overflow-y: scroll;
+}
+
+select {
+    display: block;
+}
