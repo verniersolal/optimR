@@ -34,6 +34,10 @@ router.get('/getCurrentUser', auth.getCurrentUser);
 router.get('/donation', donation.getDonation);
 // Historique
 router.get('/history', history.getHistory);
+// Fauses pages
+router.get('/defi', function (req, res) {
+    res.render('defi.ejs', {logged: true, user: req.session.user});
+})
 router.get('*', function (req, res) {
     res.status(404).json({
         "message": "Ce chemin n'est pas empruntable sergent ! Vous faites fausse route",
