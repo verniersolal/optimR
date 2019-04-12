@@ -330,3 +330,6 @@ button {
 .directions li span.ferry {
     background-position: -1316px;
 }
+select{
+    display: block;
+}

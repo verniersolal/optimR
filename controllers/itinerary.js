@@ -57,6 +57,7 @@ exports.import = function(req,res){
     var first_lgta = req.body.trajets[0].lgta;
     var first_lata = req.body.trajets[0].lata;
     var compteur = 0;
+    console.log(req.body.trajets);
     req.body.trajets.forEach((t, i)=>{
         if((t.transport_type !== current_transport)) {// nouveau step
             if(step===1){
@@ -113,6 +114,22 @@ exports.import = function(req,res){
         }
 
     });
+    if(req.body.trajets[req.body.trajets.length-1].transport_type === 'car'){
+        data.push({
+            distance: sumDistance,
+            transport_type: current_transport,
+            duration: sumDuration,
+            co2: sumCo2,
+            calories: sumCalories,
+            no2: sumNo2,
+            pm10: sumPm10,
+            price: sumPrice,
+            lgta: req.body.trajets[0].lgta,
+            lata: req.body.trajets[0].lata,
+            departure_time: req.body.trajets[req.body.trajets.length - 1].departure_time,
+            step: step
+        });
+    }else{
     if(req.body.trajets[req.body.trajets.length-1].transport_type === current_transport){
         data.push({
             distance: sumDistance,
@@ -123,8 +140,8 @@ exports.import = function(req,res){
             no2: sumNo2,
             pm10: sumPm10,
             price: sumPrice,
-            lgta: req.body.trajets[req.body.trajets.length-1-compteur].lgta,
-            lata: req.body.trajets[req.body.trajets.length-1-compteur].lata,
+            lgta: req.body.trajets[(req.body.trajets.length-1)-1-compteur].lgta,
+            lata: req.body.trajets[req.body.trajets.length-1-1-compteur].lata,
             departure_time: req.body.trajets[req.body.trajets.length-1].departure_time,
             step: step,
         })
@@ -160,7 +177,7 @@ exports.import = function(req,res){
             departure_time: req.body.trajets[req.body.trajets.length-1].departure_time,
             step: step,
         });
-    }
+    }}
     for(var i =0; i+1 < data.length;i++){
         data[i]['lgtb'] = data[i+1].lgta;
         data[i]['latb'] = data[i+1].lata;

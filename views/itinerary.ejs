@@ -1,7 +1,7 @@
 <% extend('layout') %>
 <h2 class="black">TRAJETS</h2>
-<div id="map" style="position:absolute;  height:100%; background:grey" ></div>
-<div id="panel" style="position:absolute; width:49%; left:51%; height:100%; background:inherit" ></div>
+<div id="map" style="position:absolute; height:100%; background:grey" ></div>
+<div id="panel" style="position:absolute; width:49%; left:51%; height:100%; background-color: #00acc1" ></div>
 
 <script  type="text/javascript" charset="UTF-8" >
 
@@ -46,7 +46,7 @@
         console.log('titi');
         var router = platform.getRoutingService(),
             routeRequestParams = {
-                mode: 'fastest;publicTransport',
+                mode: 'fastest;car',
                 representation: 'display',
                 routeattributes : 'waypoints,summary,shape,legs',
                 maneuverattributes: 'direction,action',
@@ -94,13 +94,13 @@
      */
     function onSuccess(result) {
         var route = result.response.route[0];
+
         /*
          * The styling of the route response on the map is entirely under the developer's control.
          * A representitive styling can be found the full JS + HTML code of this example
          * in the functions below:
          */
-        console.log(route);
-        let test = {};
+       let test = {};
         test['trajets'] = [];
         for(var i=0; i<result.response.route[0].leg[0].maneuver.length;i++){
             test['trajets'].push( {
@@ -155,7 +155,7 @@
         }
     }
     function tarif(text, distance, transp){
-        if(text.includes('>rail<') || text.includes('bus')){
+        if(text.includes('>rail<') || text.includes('>bus<')){
             console.log('tram');
             return 1.6;
         }else if(transp === 'car'){
@@ -198,7 +198,7 @@
     function transp(text, transp){
         if(text.includes('>rail<')){
             return 'tram';
-        }else if(text.includes('bus')){
+        }else if(text.includes('>bus<')){
             return 'bus';
         }else{
             if(transp === 'car'){
@@ -375,6 +375,7 @@
                 var option = document.createElement('option');
                 option.innerHTML = transp[j];
                 select.id = 'select'+i;
+                select.className = 'input-field col s12';
                 select.appendChild(option)
                 form.appendChild(select);
 
@@ -420,7 +421,7 @@
         return  Math.floor(this / 60)  +' minutes '+ (this % 60)  + ' seconds.';
     }
 </script>
-<div class="formulaire" style="position:absolute; background-color:#929292;">
+<div class="input-field col s12" style="position:absolute; background-color:#929292;">
     <form action='/optimr/itinerary' method='POST'>
         <table>
             <tr>
