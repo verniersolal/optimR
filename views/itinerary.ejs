@@ -26,7 +26,7 @@
 
 
         </div>
-        <div class="col m12 l12 s12 black">
+        <div class="col m12 l12 s12 block">
             <div id="panel"></div>
         </div>
     </div>
@@ -150,7 +150,7 @@
          * A representitive styling can be found the full JS + HTML code of this example
          * in the functions below:
          */
-       let test = {};
+        let test = {};
         test['trajets'] = [];
         for (var i = 0; i < result.response.route[0].leg[0].maneuver.length; i++) {
             test['trajets'].push({
@@ -196,17 +196,19 @@
     function onError(error) {
         alert('Ooops!');
     }
-    function getPm10(transport, distance){
-        if(transport === 'car'){
-            return 0.0138*distance;
-        }else if(transport === 'bus'){
-            return 0.02*distance;
-        }else{
+
+    function getPm10(transport, distance) {
+        if (transport === 'car') {
+            return 0.0138 * distance;
+        } else if (transport === 'bus') {
+            return 0.02 * distance;
+        } else {
             return 0;
         }
     }
-    function tarif(text, distance, transp){
-        if(text.includes('>rail<') || text.includes('>bus<')){
+
+    function tarif(text, distance, transp) {
+        if (text.includes('>rail<') || text.includes('>bus<')) {
             console.log('tram');
             return 1.6;
         } else if (transp === 'car') {
@@ -240,7 +242,7 @@
     }
 
     function getCalorie(transport, distance) {
-        if (transport === 'velo') {
+        if (transport === 'bicycle') {
             return ((distance / 3600) * 36) / 16;
         } else if (transport === 'piéton') {
             return ((distance / 3600) * 29) / 6.5;
@@ -252,14 +254,14 @@
     function transp(text, transp) {
         if (text.includes('>rail<')) {
             return 'tram';
-        }else if(text.includes('>bus<')){
+        } else if (text.includes('>bus<')) {
             return 'bus';
         } else {
             if (transp === 'car') {
                 return 'car';
-            } else if(transp === 'bicycle') {
+            } else if (transp === 'bicycle') {
                 return 'velo';
-            }else{
+            } else {
                 return 'piéton';
             }
         }
@@ -420,17 +422,18 @@
             var listep = document.createElement('li');
             var spanStep = document.createElement('span');
             spanStep.innerHTML = 'Point ' + i + ' Co2 :' +
-                route[i].co2.toFixed(3)+ ' no2: ' + route[i].no2+ ' pm10: '+ route[i].pm10 + ' calories '+ route[i].calories + ' price: ' + route[i].price.toFixed(2) +' Score : ' + route[i].score
+                route[i].co2.toFixed(3) + ' no2: ' + route[i].no2 + ' pm10: ' + route[i].pm10 + ' calories ' + route[i].calories + ' price: ' + route[i].price.toFixed(2) + ' Score : ' + route[i].score
 
             listep.appendChild(spanStep);
             nodeOL.appendChild(listep);
             var form = document.createElement('form'),
                 select = document.createElement('select');
+            select.style.display = 'block';
             var transp = ['car', 'velo', 'piéton', 'bus', 'tram'];
             for (var j = 0; j < transp.length; j++) {
                 var option = document.createElement('option');
                 option.innerHTML = transp[j];
-                select.id = 'select'+i;
+                select.id = 'select' + i;
                 select.className = 'input-field col s12';
                 select.appendChild(option)
                 form.appendChild(select);
@@ -464,21 +467,21 @@
                     success: function (data) {
                         data = data[id];
                         var transp = '';
-                        if(d.target.value === 'piéton'){
-                            transp  = 'pedestrian';
-                        }else if(d.target.value === 'tram' || d.target.value === 'bus'){
-                            transp  = 'publicTransport';
-                        }else if(d.target.value === 'car'){
+                        if (d.target.value === 'piéton') {
+                            transp = 'pedestrian';
+                        } else if (d.target.value === 'tram' || d.target.value === 'bus') {
+                            transp = 'publicTransport';
+                        } else if (d.target.value === 'car') {
                             transp = 'car';
 
                         }
-                        else{
+                        else {
                             transp = 'bicycle'
                         }
                         console.log(transp);
                         var router = platform.getRoutingService(),
                             routeRequestParams = {
-                                mode: 'fastest;'+transp,
+                                mode: 'fastest;' + transp,
                                 representation: 'display',
                                 routeattributes: 'waypoints,summary,shape,legs',
                                 maneuverattributes: 'direction,action',

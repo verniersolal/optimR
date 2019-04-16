@@ -451,7 +451,3 @@ button {
     max-height: 60vh;
     overflow-y: scroll;
 }
-
-select {
-    display: block;
-}
