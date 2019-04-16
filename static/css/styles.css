@@ -33,6 +33,10 @@ nav a {
     color: #4c9249 !important;
 }
 
+nav .brand-logo.center {
+    height: 100%;
+}
+
 .sidenav li > a {
     color: #4c9249 !important;
     font-size: 25px;
