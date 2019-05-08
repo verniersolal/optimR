@@ -446,6 +446,17 @@ button {
     border-radius: 30px;
     top: 2vh;
 }
-select{
-    display: block;
+#mytable{
+    color: #4c9249;
 }
+#totalScore{
+    color: #4c9249;
+}
+#panel{
+    background-color: white;
+    margin-top: 5vh;
+    border: 3px solid #929292;
+    border-radius: 10px;
+    display:none;
+}
+

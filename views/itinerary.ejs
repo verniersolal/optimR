@@ -26,7 +26,7 @@
 
 
         </div>
-        <div class="col m12 l12 s12 black">
+        <div class="col m12 l12 s12">
             <div id="panel"></div>
         </div>
     </div>
@@ -366,19 +366,7 @@
     function addWaypointsToPanel(waypoints) {
 
 
-        var nodeH3 = document.createElement('h3'),
-            waypointLabels = [],
-            i;
-
-
-        for (i = 0; i < waypoints.length; i += 1) {
-            waypointLabels.push(waypoints[i].label)
-        }
-
-        nodeH3.textContent = waypointLabels.join(' - ');
-
         routeInstructionsContainer.innerHTML = '';
-        routeInstructionsContainer.appendChild(nodeH3);
     }
 
     /**
@@ -405,9 +393,10 @@
      */
     function addManueversToPanel(route) {
         console.log(route);
+        var title = document.createElement("h3");
+        title.innerHTML = route[0].departure + ' - ' + route[0].finish;
         var nodeOL = document.createElement('ul');
 
-        nodeOL.style.fontSize = 'small';
         nodeOL.style.marginLeft = '5%';
         nodeOL.style.marginRight = '5%';
         nodeOL.className = 'directions';
@@ -418,14 +407,30 @@
 
             sum += route[i].score;
             var listep = document.createElement('li');
-            var spanStep = document.createElement('span');
-            spanStep.innerHTML = 'Point ' + i + ' Co2 :' +
-                route[i].co2.toFixed(3)+ ' no2: ' + route[i].no2+ ' pm10: '+ route[i].pm10 + ' calories '+ route[i].calories + ' price: ' + route[i].price.toFixed(2) +' Score : ' + route[i].score
+            var co2 = document.createElement('p');
+            var no2 = document.createElement('p');
+            var pm10 = document.createElement('p');
+            var calories = document.createElement('p');
+            var prix = document.createElement('p');
+            var score = document.createElement('p');
 
-            listep.appendChild(spanStep);
+            co2.innerHTML = ' Co2 :' + route[i].co2.toFixed(3);
+            no2.innerHTML = ' No2: ' + route[i].no2.toFixed(2);
+            pm10.innerHTML =' Pm10: '+ route[i].pm10.toFixed(3);
+            calories.innerHTML = ' Calories: '+ route[i].calories.toFixed(2);
+            prix.innerHTML = ' Frais de déplacement: ' + route[i].price.toFixed(2);
+            score.innerHTML = ' Score : ' + route[i].score;
+
+            listep.appendChild(co2);
+            listep.appendChild(no2);
+            listep.appendChild(pm10);
+            listep.appendChild(calories);
+            listep.appendChild(prix);
+            listep.appendChild(score);
             nodeOL.appendChild(listep);
             var form = document.createElement('form'),
                 select = document.createElement('select');
+            select.style.display = 'block';
             var transp = ['car', 'velo', 'piéton', 'bus', 'tram'];
             for (var j = 0; j < transp.length; j++) {
                 var option = document.createElement('option');
@@ -443,8 +448,13 @@
 
         }
         score.innerHTML = 'Score total du trajet : ' + sum;
+        routeInstructionsContainer.appendChild(title);
+
         routeInstructionsContainer.appendChild(nodeOL);
         routeInstructionsContainer.appendChild(score);
+        $('#panel').css('color', 'black');
+        $('#panel').css('background-color', 'white');
+
         setSelected(route);
 
 
@@ -470,7 +480,6 @@
                             transp  = 'publicTransport';
                         }else if(d.target.value === 'car'){
                             transp = 'car';
-
                         }
                         else{
                             transp = 'bicycle'
@@ -487,14 +496,12 @@
                                 language: 'fr-fr'
                             };
 
-
+                        console.log(router);
                         router.calculateRoute(
                             routeRequestParams,
                             onSuccess,
                             onError
                         );
-
-
                     },
                     error: function (res, stat, err) {
                         console.log(err);
@@ -504,8 +511,6 @@
         }// you need to specify id of combo to set right combo, if more than one combo
 
     }
-
-
     Number.prototype.toMMSS = function () {
         return Math.floor(this / 60) + ' minutes ' + (this % 60) + ' seconds.';
     }
